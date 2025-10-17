@@ -83,7 +83,7 @@ export default {
     components: { ConfirmButton },
     methods: {
         getExercises() {
-            return this.exerciseLogStore.exerciseLog.toReversed();
+            return [...this.exerciseLogStore.exerciseLog].reverse();
         },
         deleteExercise(exerciseId: string) {
             this.exerciseLogStore.deleteExercise(exerciseId);
