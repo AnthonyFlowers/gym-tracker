@@ -27,6 +27,5 @@ export const generateStatistics = (
         }
         statistics.push({ exerciseName: exercise.name, max, lastLiftDate, lastLiftWeight });
     }
-    console.log(statistics);
     return statistics;
 };

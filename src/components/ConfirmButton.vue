@@ -47,6 +47,7 @@ export default {
     },
     methods: {
         handleConfirm() {
+            this.isConfirmed = false;
             this.$emit('confirmed');
         },
         handleCancel() {
