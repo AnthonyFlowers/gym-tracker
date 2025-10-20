@@ -25,7 +25,9 @@ export const generateStatistics = (
                 }
             }
         }
-        statistics.push({ exerciseName: exercise.name, max, lastLiftDate, lastLiftWeight });
+        if (lastLiftDate) {
+            statistics.push({ exerciseName: exercise.name, max, lastLiftDate, lastLiftWeight });
+        }
     }
     return statistics;
 };
