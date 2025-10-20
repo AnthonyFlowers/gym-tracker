@@ -1,8 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import HomeView from '../views/HomeView.vue';
-import ExerciseLogView from '../views/ExerciseLogView.vue';
+import HomeView from '@/views/HomeView.vue';
+import ExerciseLogView from '@/views/ExerciseLogView.vue';
 import StatsView from '@/views/StatsView.vue';
-import RecommendedExercises from '@/components/RecommendedExercises.vue';
+import RecommendedView from '@/views/RecommendedView.vue';
+import ManageDataView from '@/views/ManageDataView.vue';
 
 const routes = [
     {
@@ -23,7 +24,12 @@ const routes = [
     {
         path: '/recommended',
         name: 'recommended exercises',
-        component: RecommendedExercises,
+        component: RecommendedView,
+    },
+    {
+        path: '/manage-data',
+        name: 'manage data',
+        component: ManageDataView,
     },
 ];
 

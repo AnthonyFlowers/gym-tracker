@@ -8,7 +8,7 @@ import RecentWorkouts from '@/components/RecentExercises.vue';
         <div class="md:w-1/2 xs:pb-8 md:pb-0 mr-4">
             <ExerciseInput />
         </div>
-        <div class="md:w-1/2 ml-4">
+        <div class="md:w-1/2 ml-4 mt-10">
             <RecentWorkouts />
         </div>
     </div>

@@ -68,7 +68,8 @@ const navigation = [
     { name: 'Home', href: '/' },
     { name: 'Log', href: '/log' },
     { name: 'Stats', href: '/stats' },
-    { name: 'Recommended', href: '/recommended' },
+    // { name: 'Recommended', href: '/recommended' },
+    { name: 'Manage Data', href: '/manage-data' },
 ];
 </script>
 
