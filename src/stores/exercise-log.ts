@@ -18,6 +18,10 @@ export const useExerciseLogStore = defineStore('exerciseLog', {
                 this.exerciseLog.splice(index, 1);
             }
         },
+        setExerciseLog(exercises: LoggedExercise[]) {
+            if (!exercises) return;
+            this.exerciseLog = exercises;
+        },
     },
     persist: true,
 });

@@ -20,6 +20,10 @@ export const useExerciseStore = defineStore('exercise', {
         addExercise(exercise: Exercise) {
             this.exercises.push(exercise);
         },
+        setExercises(exercises: Exercise[]) {
+            if (!exercises) return;
+            this.exercises = exercises;
+        },
     },
     persist: true,
 });
