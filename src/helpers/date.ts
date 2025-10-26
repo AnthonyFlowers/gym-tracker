@@ -7,7 +7,7 @@ export const formatDate = (date: Date): string => {
 
 export const formatDateTime = (date: Date): string => {
     const dateString = formatDate(date);
-    const hour = String(date.getHours());
-    const minute = String(date.getMinutes());
+    const hour = String(date.getHours()).padStart(2, '0');
+    const minute = String(date.getMinutes()).padStart(2, '0');
     return `${dateString}T${hour}-${minute}`;
 };
