@@ -106,6 +106,11 @@ import { isValidExercise } from '@/helpers/validation';
 import { useExerciseStore } from '@/stores/exercise';
 import BasicButton from './BasicButton.vue';
 import ConfirmButton from './ConfirmButton.vue';
+import { ClientDataService } from '@/services/ClientDataService';
+const clientDataService = new ClientDataService();
+clientDataService.getExercises().then((query) => {
+    console.log(query);
+});
 
 export default {
     data() {
@@ -121,6 +126,7 @@ export default {
     components: { BasicButton, ConfirmButton },
     methods: {
         addWorkout() {
+            
             const exercise = {
                 name: this.workoutName,
                 notes: this.notes,
