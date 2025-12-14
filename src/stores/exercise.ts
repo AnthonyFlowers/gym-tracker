@@ -1,10 +1,15 @@
+
 import { startingExercises } from '@/models/consts';
 import type { Exercise, Muscle } from '@/models/exercise.interface';
 import { defineStore } from 'pinia';
+import { GymTrackerDatabase } from '@/services/GymTrackerDatabase';
+import { getClientDataServiceInstance } from '@/services/ClientDataService';
 
 export const useExerciseStore = defineStore('exercise', {
     state: () => ({
-        exercises: startingExercises,
+        exercises: [] as (Exercise & { id?: number })[],
+        db: getClientDataServiceInstance(),
+        isLoaded: false,
     }),
     getters: {
         getExercises: (state) => state.exercises,
@@ -17,13 +22,22 @@ export const useExerciseStore = defineStore('exercise', {
         getExerciseChoices: (state) => state.exercises.map((exercise) => exercise.name),
     },
     actions: {
-        addExercise(exercise: Exercise) {
-            this.exercises.push(exercise);
+        async loadExercises() {
+            if (this.isLoaded) return;
+            const dbExercises = await this.db.getExercises();
+            if (dbExercises.length === 0) {
+                await this.db.setExercises(startingExercises);
+                this.exercises = startingExercises;
+            } else {
+                this.exercises = dbExercises;
+            }
+            this.isLoaded = true;
         },
-        setExercises(exercises: Exercise[]) {
+        async setExercises(exercises: Exercise[]) {
             if (!exercises) return;
+            await this.db.setExercises(exercises);
             this.exercises = exercises;
-        },
+        }
     },
-    persist: true,
+    persist: false,
 });

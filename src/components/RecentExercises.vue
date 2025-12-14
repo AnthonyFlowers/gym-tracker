@@ -67,9 +67,21 @@ export default {
             exerciseLogStore: useExerciseLogStore(),
         };
     },
+    mounted() {
+        if(!this.exerciseLogStore.isLoaded) {
+            this.loadExerciseLogs().then(() => {
+                console.log('Exercise logs loaded successfully.');
+            }).catch((error) => {
+                console.error('Error loading exercise logs:', error);
+            });
+        }
+    },
     methods: {
         getLatestExercises() {
             return this.exerciseLogStore.exerciseLog.slice(-8).reverse();
+        },
+        async loadExerciseLogs() {
+            await this.exerciseLogStore.loadExerciseLog();
         },
     },
 };

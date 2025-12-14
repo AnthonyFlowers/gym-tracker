@@ -106,16 +106,11 @@ import { isValidExercise } from '@/helpers/validation';
 import { useExerciseStore } from '@/stores/exercise';
 import BasicButton from './BasicButton.vue';
 import ConfirmButton from './ConfirmButton.vue';
-import { ClientDataService } from '@/services/ClientDataService';
-const clientDataService = new ClientDataService();
-clientDataService.getExercises().then((query) => {
-    console.log(query);
-});
 
 export default {
     data() {
         return {
-            workoutName: this.getFirstExerciseName(),
+            workoutName: '',
             notes: '',
             weight: 0,
             reps: 0,
@@ -123,10 +118,14 @@ export default {
             workoutDate: formatDate(new Date()),
         };
     },
+    mounted() {
+        this.loadExercises().then(async () => {
+            this.workoutName = await this.getFirstExerciseName();
+        });
+    },
     components: { BasicButton, ConfirmButton },
     methods: {
         addWorkout() {
-            
             const exercise = {
                 name: this.workoutName,
                 notes: this.notes,
@@ -137,7 +136,7 @@ export default {
                 id: new Date().toISOString(),
             };
             if (isValidExercise(exercise)) {
-                this.exerciseLogStore.addExercise(exercise);
+                this.exerciseLogStore.addExerciseLog(exercise);
             } else {
                 alert('invalid Exercise');
             }
@@ -151,8 +150,12 @@ export default {
         getExercises() {
             return this.exerciseStore.exercises;
         },
-        getFirstExerciseName() {
-            return this.exerciseStore.exercises[0].name;
+        async getFirstExerciseName() {
+            const exercises = this.exerciseStore.exercises;
+            return exercises[0].name;
+        },
+        async loadExercises() {
+            await this.exerciseStore.loadExercises();
         },
     },
     setup() {

@@ -78,13 +78,25 @@ export default {
             exerciseLogStore: useExerciseLogStore(),
         };
     },
+    mounted() {
+        if(!this.exerciseLogStore.isLoaded) {
+            this.loadExerciseLogs().then(() => {
+                console.log('Exercise logs loaded successfully.');
+            }).catch((error) => {
+                console.error('Error loading exercise logs:', error);
+            });
+        }
+    },
     components: { ConfirmButton },
     methods: {
         getExercises() {
             return [...this.exerciseLogStore.exerciseLog].reverse();
         },
         deleteExercise(exerciseId: string) {
-            this.exerciseLogStore.deleteExercise(exerciseId);
+            this.exerciseLogStore.deleteExerciseLog(exerciseId);
+        },
+        async loadExerciseLogs() {
+            await this.exerciseLogStore.loadExerciseLog();
         },
     },
 };

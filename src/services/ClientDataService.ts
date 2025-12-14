@@ -1,3 +1,4 @@
+import type { Exercise, LoggedExercise } from '@/models/exercise.interface';
 import { GymTrackerDatabase } from './GymTrackerDatabase';
 
 export class ClientDataService {
@@ -9,22 +10,18 @@ export class ClientDataService {
     }
 
     async getExercises() {
-        const query = await this.gymTrackerDatabase.exercises.toArray();
+        const query = await this.gymTrackerDatabase.getExercises();
         return query;
-    }
-
-    async addExercise(exerciseName: string) {
-        await this.gymTrackerDatabase.exercises.add({ name: exerciseName });
     }
 
     async deleteExercise(exerciseId: number) {
         await this.gymTrackerDatabase.exercises.delete(exerciseId);
     }
 
-    async setExercises(exercises: { id: number | null; name: string }[]) {
+    async setExercises(exercises: Exercise[]) {
         await this.gymTrackerDatabase.exercises.clear();
         for (const exercise of exercises) {
-            await this.gymTrackerDatabase.exercises.add({ id: exercise.id ?? undefined, name: exercise.name });
+            await this.gymTrackerDatabase.exercises.add(exercise);
         }
     }
 
@@ -38,4 +35,30 @@ export class ClientDataService {
         const result = allExercises.filter(exercise => exercise.name.includes(muscle));
         return result;
     }
+
+    async getExerciseLog() {
+        const query = await this.gymTrackerDatabase.getExerciseLogs();
+        return query;
+    }
+
+    async addExerciseLog(log: LoggedExercise) {
+        await this.gymTrackerDatabase.addExerciseLog(log);
+    }
+
+    async deleteExerciseLog(logId: string) {
+        await this.gymTrackerDatabase.deleteExerciseLog(logId);
+    }
+
+    async setExerciseLogs(logs: LoggedExercise[]) {
+        await this.gymTrackerDatabase.setExerciseLogs(logs);
+    }
+}
+
+ let clientDataServiceInstance: ClientDataService;
+
+ export function getClientDataServiceInstance() {
+    if (!clientDataServiceInstance) {
+        clientDataServiceInstance = new ClientDataService();
+    }
+    return clientDataServiceInstance;
 }
