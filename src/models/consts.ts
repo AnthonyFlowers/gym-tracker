@@ -1,4 +1,5 @@
 import { Muscle, MuscleActivationLevel, type Exercise } from './exercise.interface';
+import { BlockPeriodizationFocus, type Split } from './workout-split.interface';
 
 export const startingExercises: Exercise[] = [
     {
@@ -171,5 +172,56 @@ export const startingExercises: Exercise[] = [
     {
         name: 'Pull Ups',
         muscleTargets: [{ muscle: Muscle.LATS, activation: MuscleActivationLevel.HIGH }],
+    },
+];
+
+export const startingSplits: Split[] = [
+    {
+        name: 'Hypertrophy',
+        setsLower: 4,
+        setsHigher: 5,
+        repsLower: 8,
+        repsHigher: 12,
+        focus: BlockPeriodizationFocus.WORK_CAPACITY,
+        length: 28, // 4 weeks
+        oneRepPercentageLower: 0.6,
+        oneRepPercentageHigher: 0.75,
+        schedule: [],
+    },
+    {
+        name: 'Strength',
+        setsLower: 3,
+        setsHigher: 5,
+        repsLower: 3,
+        repsHigher: 6,
+        focus: BlockPeriodizationFocus.NERVOUS_SYSTEM,
+        length: 28, // 4 weeks
+        oneRepPercentageLower: 0.75,
+        oneRepPercentageHigher: 0.9,
+        schedule: [],
+    },
+    {
+        name: 'Peak',
+        setsLower: 1,
+        setsHigher: 3,
+        repsLower: 1,
+        repsHigher: 3,
+        focus: BlockPeriodizationFocus.NEW_PR,
+        length: 28, // 4 weeks
+        oneRepPercentageLower: 0.9,
+        oneRepPercentageHigher: 1.2,
+        schedule: [],
+    },
+    {
+        name: 'Deload',
+        setsLower: 2,
+        setsHigher: 3,
+        repsLower: 5,
+        repsHigher: 5,
+        focus: BlockPeriodizationFocus.RECOVERY,
+        length: 7, // 1 week
+        oneRepPercentageLower: 0.4,
+        oneRepPercentageHigher: 0.5,
+        schedule: [],
     },
 ];
