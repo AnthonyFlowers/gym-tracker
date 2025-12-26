@@ -50,7 +50,7 @@ export class GymTrackerDatabase extends Dexie {
         await this.exerciseLogs.bulkAdd(logs);
     }
 
-    async deleteExerciseLog(id: string) {
+    async deleteLoggedExercise(id: string) {
         await this.exerciseLogs.delete(id);
     }
 }

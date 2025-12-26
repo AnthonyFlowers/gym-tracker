@@ -1,12 +1,9 @@
-import { ClientDataService } from './ClientDataService';
+import { getClientDataServiceInstance } from './ClientDataService';
 
-describe(ClientDataService.name, () => {
-    const instance = new ClientDataService();
-    beforeAll(() => {});
-
-    it('initializes SQLite properties', () => {
-        expect(instance['error'].value).toBeNull();
-        expect(instance['isLoading'].value).toBeFalsy();
-        expect(instance['executeQuery']).toBeInstanceOf(Function);
+describe('getClientDataServiceInstance', () => {
+    it('should return the same instance on multiple calls', () => {
+        const instance1 = getClientDataServiceInstance();
+        const instance2 = getClientDataServiceInstance();
+        expect(instance1).toBe(instance2);
     });
 });

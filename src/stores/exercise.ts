@@ -1,8 +1,6 @@
-
 import { startingExercises } from '@/models/consts';
 import type { Exercise, Muscle } from '@/models/exercise.interface';
 import { defineStore } from 'pinia';
-import { GymTrackerDatabase } from '@/services/GymTrackerDatabase';
 import { getClientDataServiceInstance } from '@/services/ClientDataService';
 
 export const useExerciseStore = defineStore('exercise', {
@@ -37,7 +35,7 @@ export const useExerciseStore = defineStore('exercise', {
             if (!exercises) return;
             await this.db.setExercises(exercises);
             this.exercises = exercises;
-        }
+        },
     },
     persist: false,
 });

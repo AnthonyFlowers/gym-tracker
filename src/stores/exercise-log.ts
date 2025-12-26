@@ -1,10 +1,15 @@
-
 import type { LoggedExercise } from '@/models/exercise.interface';
 import { defineStore } from 'pinia';
 import { getClientDataServiceInstance } from '@/services/ClientDataService';
 
+interface ExerciseLogState {
+    exerciseLog: LoggedExercise[];
+    db: ReturnType<typeof getClientDataServiceInstance>;
+    isLoaded: boolean;
+}
+
 export const useExerciseLogStore = defineStore('exerciseLog', {
-    state: () => ({
+    state: (): ExerciseLogState => ({
         exerciseLog: [] as LoggedExercise[],
         db: getClientDataServiceInstance(),
         isLoaded: false,
@@ -13,25 +18,50 @@ export const useExerciseLogStore = defineStore('exerciseLog', {
         getExerciseLogs: (state) => state.exerciseLog,
     },
     actions: {
-        async loadExerciseLog() {
+        async loadExerciseLog(): Promise<void> {
             if (this.isLoaded) return;
             const dbLogs = await this.db.getExerciseLog();
-            console.log('Loaded exercise logs from DB:', dbLogs);
             this.exerciseLog = dbLogs;
             this.isLoaded = true;
         },
-        async addExerciseLog(workout: LoggedExercise) {
-            await this.db.addExerciseLog(workout);
-            this.exerciseLog.push(workout);
-        },
-        async deleteExerciseLog(exerciseId: string) {
-            await this.db.deleteExerciseLog(exerciseId);
+        async reloadExerciseLog(): Promise<void> {
+            this.isLoaded = false;
             await this.loadExerciseLog();
         },
-        async setExerciseLog(exercises: LoggedExercise[]) {
+        async addExerciseLog(workout: LoggedExercise): Promise<void> {
+            this.exerciseLog.push(workout);
+            try {
+                await this.db.addExerciseLog(workout);
+            } catch (error) {
+                console.error('Failed to add exercise log to database:', error);
+                await this.reloadExerciseLog();
+                // TODO: have this throw an error notification to the user
+            }
+        },
+        async deleteLoggedExercise(logId: string): Promise<void> {
+            this.exerciseLog = this.exerciseLog.filter((log) => log.id !== logId);
+            try {
+                await this.db.deleteLoggedExercise(logId);
+            } catch (error) {
+                console.error('Failed to delete exercise log from database:', error);
+                await this.reloadExerciseLog();
+                // TODO: have this throw an error notification to the user
+            }
+        },
+        async setExerciseLog(exercises: LoggedExercise[]): Promise<void> {
             if (!exercises) return;
             await this.db.setExerciseLogs(exercises);
             this.exerciseLog = exercises;
+        },
+        async clearExerciseLog() {
+            this.exerciseLog = [];
+            try {
+                await this.db.setExerciseLogs([]);
+            } catch (error) {
+                console.error('Failed to clear exercise logs from database:', error);
+                await this.reloadExerciseLog();
+                // TODO: have this throw an error notification to the user
+            }
         },
     },
     persist: false,

@@ -1,9 +1,8 @@
 import type { Exercise, LoggedExercise } from '@/models/exercise.interface';
 import { GymTrackerDatabase } from './GymTrackerDatabase';
 
-export class ClientDataService {
+class ClientDataService {
     private gymTrackerDatabase;
-
 
     constructor(gymTrackerDatabase = new GymTrackerDatabase()) {
         this.gymTrackerDatabase = gymTrackerDatabase;
@@ -32,7 +31,7 @@ export class ClientDataService {
 
     async getExercisesByMuscle(muscle: string) {
         const allExercises = await this.gymTrackerDatabase.exercises.toArray();
-        const result = allExercises.filter(exercise => exercise.name.includes(muscle));
+        const result = allExercises.filter((exercise) => exercise.name.includes(muscle));
         return result;
     }
 
@@ -45,8 +44,8 @@ export class ClientDataService {
         await this.gymTrackerDatabase.addExerciseLog(log);
     }
 
-    async deleteExerciseLog(logId: string) {
-        await this.gymTrackerDatabase.deleteExerciseLog(logId);
+    async deleteLoggedExercise(logId: string) {
+        await this.gymTrackerDatabase.deleteLoggedExercise(logId);
     }
 
     async setExerciseLogs(logs: LoggedExercise[]) {
@@ -54,9 +53,9 @@ export class ClientDataService {
     }
 }
 
- let clientDataServiceInstance: ClientDataService;
+let clientDataServiceInstance: ClientDataService;
 
- export function getClientDataServiceInstance() {
+export function getClientDataServiceInstance(): ClientDataService {
     if (!clientDataServiceInstance) {
         clientDataServiceInstance = new ClientDataService();
     }

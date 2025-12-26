@@ -79,12 +79,14 @@ export default {
         };
     },
     mounted() {
-        if(!this.exerciseLogStore.isLoaded) {
-            this.loadExerciseLogs().then(() => {
-                console.log('Exercise logs loaded successfully.');
-            }).catch((error) => {
-                console.error('Error loading exercise logs:', error);
-            });
+        if (!this.exerciseLogStore.isLoaded) {
+            this.loadExerciseLogs()
+                .then(() => {
+                    console.log('Exercise logs loaded successfully.');
+                })
+                .catch((error) => {
+                    console.error('Error loading exercise logs:', error);
+                });
         }
     },
     components: { ConfirmButton },
@@ -92,8 +94,8 @@ export default {
         getExercises() {
             return [...this.exerciseLogStore.exerciseLog].reverse();
         },
-        deleteExercise(exerciseId: string) {
-            this.exerciseLogStore.deleteExerciseLog(exerciseId);
+        async deleteExercise(logId: string) {
+            await this.exerciseLogStore.deleteLoggedExercise(logId);
         },
         async loadExerciseLogs() {
             await this.exerciseLogStore.loadExerciseLog();
