@@ -25,7 +25,8 @@
 </template>
 
 <script lang="ts">
-export default {
+import { defineComponent } from 'vue';
+export default defineComponent({
     props: {
         initialText: {
             type: String,
@@ -54,5 +55,5 @@ export default {
             this.isConfirmed = false;
         },
     },
-};
+});
 </script>

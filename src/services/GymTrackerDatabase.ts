@@ -1,9 +1,7 @@
-
-
-import Dexie from "dexie";
-import type { Table } from "dexie";
-import type { Exercise, LoggedExercise } from "@/models/exercise.interface";
-import { startingExercises } from "@/models/consts";
+import Dexie from 'dexie';
+import type { Table } from 'dexie';
+import type { Exercise, LoggedExercise } from '@/models/exercise.interface';
+import { startingExercises } from '@/models/consts';
 
 export class GymTrackerDatabase extends Dexie {
     exercises: Table<Exercise & { id?: number }, number>;
@@ -19,38 +17,38 @@ export class GymTrackerDatabase extends Dexie {
         this.exerciseLogs = this.table('exerciseLogs');
     }
 
-    async addExercise(exercise: Exercise) {
+    async addExercise(exercise: Exercise): Promise<number> {
         return await this.exercises.add(exercise);
     }
 
     async getExercises(): Promise<(Exercise & { id?: number })[]> {
-        const all = await this.exercises.toArray();
-        if (all.length === 0) {
+        const allExercises = await this.exercises.toArray();
+        if (allExercises.length === 0) {
             await this.setExercises(startingExercises);
             return [...startingExercises];
         }
-        return all;
+        return allExercises;
     }
 
-    async setExercises(exercises: Exercise[]) {
+    async setExercises(exercises: Exercise[]): Promise<void> {
         await this.exercises.clear();
         await this.exercises.bulkAdd(exercises);
     }
 
-    async addExerciseLog(log: LoggedExercise) {
-        return await this.exerciseLogs.add(log);
+    async addExerciseLog(log: LoggedExercise): Promise<void> {
+        await this.exerciseLogs.add(log);
     }
 
-    async getExerciseLogs(): Promise<LoggedExercise[]> {
+    async getExerciseLog(): Promise<LoggedExercise[]> {
         return await this.exerciseLogs.toArray();
     }
 
-    async setExerciseLogs(logs: LoggedExercise[]) {
+    async setExerciseLogs(logs: LoggedExercise[]): Promise<void> {
         await this.exerciseLogs.clear();
         await this.exerciseLogs.bulkAdd(logs);
     }
 
-    async deleteLoggedExercise(id: string) {
+    async deleteLoggedExercise(id: string): Promise<void> {
         await this.exerciseLogs.delete(id);
     }
 }

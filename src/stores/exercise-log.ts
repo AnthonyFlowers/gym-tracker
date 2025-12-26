@@ -15,7 +15,7 @@ export const useExerciseLogStore = defineStore('exerciseLog', {
         isLoaded: false,
     }),
     getters: {
-        getExerciseLogs: (state) => state.exerciseLog,
+        getExerciseLog: (state) => state.exerciseLog,
     },
     actions: {
         async loadExerciseLog(): Promise<void> {

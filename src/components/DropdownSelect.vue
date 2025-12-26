@@ -24,7 +24,7 @@ export default defineComponent({
     name: 'DropdownSelect',
     props: {
         items: {
-            type: Array as PropType<any[]>,
+            type: Array as PropType<Array<Record<string, unknown>>>,
             required: true,
         },
         modelValue: {

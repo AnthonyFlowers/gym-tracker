@@ -11,12 +11,16 @@ export const useExerciseStore = defineStore('exercise', {
     }),
     getters: {
         getExercises: (state) => state.exercises,
-        getExerciseByName: (state) => (name: string) =>
-            state.exercises.find((exercise) => exercise.name === name),
-        getExercisesByMuscle: (state) => (muscle: Muscle) =>
-            state.exercises.filter((exercise) =>
-                exercise.muscleTargets.some((target) => target.muscle === muscle),
-            ),
+        getExerciseByName:
+            (state) =>
+            (name: string): Exercise | undefined =>
+                state.exercises.find((exercise) => exercise.name === name),
+        getExercisesByMuscle:
+            (state) =>
+            (muscle: Muscle): Exercise[] =>
+                state.exercises.filter((exercise) =>
+                    exercise.muscleTargets.some((target) => target.muscle === muscle),
+                ),
         getExerciseChoices: (state) => state.exercises.map((exercise) => exercise.name),
     },
     actions: {

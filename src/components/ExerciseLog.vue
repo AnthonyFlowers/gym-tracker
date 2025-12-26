@@ -71,8 +71,9 @@
 <script lang="ts">
 import { useExerciseLogStore } from '@/stores/exercise-log';
 import ConfirmButton from './ConfirmButton.vue';
+import { defineComponent } from 'vue';
 
-export default {
+export default defineComponent({
     setup() {
         return {
             exerciseLogStore: useExerciseLogStore(),
@@ -81,11 +82,10 @@ export default {
     mounted() {
         if (!this.exerciseLogStore.isLoaded) {
             this.loadExerciseLogs()
-                .then(() => {
-                    console.log('Exercise logs loaded successfully.');
-                })
-                .catch((error) => {
-                    console.error('Error loading exercise logs:', error);
+                .then(() => {})
+                .catch(() => {
+                    // TODO: Handle error appropriately
+                    // Alert the user or log the error
                 });
         }
     },
@@ -101,5 +101,5 @@ export default {
             await this.exerciseLogStore.loadExerciseLog();
         },
     },
-};
+});
 </script>

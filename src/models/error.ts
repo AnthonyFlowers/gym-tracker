@@ -1,7 +1,3 @@
-export enum ErrorMessage {
-    SQLPromiserInitializationError = 'Could not initialize the SQL promiser worker.',
-}
-
-export const newError = (message?: string) => {
+export const newError = (message?: string): never => {
     throw new Error(message);
 };
