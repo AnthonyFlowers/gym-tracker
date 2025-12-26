@@ -54,8 +54,10 @@
 import { useExerciseLogStore } from '@/stores/exercise-log';
 import { generateStatistics } from '@/helpers/statistics';
 import { useExerciseStore } from '@/stores/exercise';
+import { defineComponent } from 'vue';
 
-export default {
+export default defineComponent({
+    name: 'ExerciseStats',
     setup() {
         return {
             exerciseLogStore: useExerciseLogStore(),
@@ -70,5 +72,5 @@ export default {
             );
         },
     },
-};
+});
 </script>

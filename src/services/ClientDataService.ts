@@ -8,47 +8,45 @@ class ClientDataService {
         this.gymTrackerDatabase = gymTrackerDatabase;
     }
 
-    async getExercises() {
+    async getExercises(): Promise<(Exercise & { id?: number })[]> {
         const query = await this.gymTrackerDatabase.getExercises();
         return query;
     }
 
-    async deleteExercise(exerciseId: number) {
+    async deleteExercise(exerciseId: number): Promise<void> {
         await this.gymTrackerDatabase.exercises.delete(exerciseId);
     }
 
-    async setExercises(exercises: Exercise[]) {
+    async setExercises(exercises: Exercise[]): Promise<void> {
         await this.gymTrackerDatabase.exercises.clear();
         for (const exercise of exercises) {
             await this.gymTrackerDatabase.exercises.add(exercise);
         }
     }
 
-    async getExerciseByName(name: string) {
-        const query = await this.gymTrackerDatabase.exercises.where('name').equals(name).first();
-        return query;
+    async getExerciseByName(name: string): Promise<Exercise | undefined> {
+        return await this.gymTrackerDatabase.exercises.where('name').equals(name).first();
     }
 
-    async getExercisesByMuscle(muscle: string) {
+    async getExercisesByMuscle(muscle: string): Promise<Exercise[]> {
         const allExercises = await this.gymTrackerDatabase.exercises.toArray();
-        const result = allExercises.filter((exercise) => exercise.name.includes(muscle));
-        return result;
+        const filteredExercises = allExercises.filter((exercise) => exercise.name.includes(muscle));
+        return filteredExercises;
     }
 
-    async getExerciseLog() {
-        const query = await this.gymTrackerDatabase.getExerciseLogs();
-        return query;
+    async getExerciseLog(): Promise<LoggedExercise[]> {
+        return await this.gymTrackerDatabase.getExerciseLog();
     }
 
-    async addExerciseLog(log: LoggedExercise) {
+    async addExerciseLog(log: LoggedExercise): Promise<void> {
         await this.gymTrackerDatabase.addExerciseLog(log);
     }
 
-    async deleteLoggedExercise(logId: string) {
+    async deleteLoggedExercise(logId: string): Promise<void> {
         await this.gymTrackerDatabase.deleteLoggedExercise(logId);
     }
 
-    async setExerciseLogs(logs: LoggedExercise[]) {
+    async setExerciseLogs(logs: LoggedExercise[]): Promise<void> {
         await this.gymTrackerDatabase.setExerciseLogs(logs);
     }
 }

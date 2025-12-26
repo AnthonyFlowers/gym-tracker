@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { defineComponent } from 'vue';
 import NavigationBar from './components/NavigationBar.vue';
 </script>
 
@@ -12,12 +13,12 @@ import NavigationBar from './components/NavigationBar.vue';
 </template>
 
 <script lang="ts">
-export default {
+export default defineComponent({
     name: 'App',
     components: {},
     data() {
         return {};
     },
     methods: {},
-};
+});
 </script>

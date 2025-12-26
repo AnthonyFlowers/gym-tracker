@@ -60,20 +60,23 @@
 
 <script lang="ts">
 import { useExerciseLogStore } from '@/stores/exercise-log';
+import { defineComponent } from 'vue';
 
-export default {
+export default defineComponent({
     setup() {
         return {
             exerciseLogStore: useExerciseLogStore(),
         };
     },
     mounted() {
-        if(!this.exerciseLogStore.isLoaded) {
-            this.loadExerciseLogs().then(() => {
-                console.log('Exercise logs loaded successfully.');
-            }).catch((error) => {
-                console.error('Error loading exercise logs:', error);
-            });
+        if (!this.exerciseLogStore.isLoaded) {
+            this.loadExerciseLogs()
+                .then(() => {
+                    console.log('Exercise logs loaded successfully.');
+                })
+                .catch((error) => {
+                    console.error('Error loading exercise logs:', error);
+                });
         }
     },
     methods: {
@@ -84,5 +87,5 @@ export default {
             await this.exerciseLogStore.loadExerciseLog();
         },
     },
-};
+});
 </script>

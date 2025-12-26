@@ -7,7 +7,8 @@
 </template>
 
 <script lang="ts">
-export default {
+import { defineComponent } from 'vue';
+export default defineComponent({
     props: {
         text: {
             type: String,
@@ -19,5 +20,5 @@ export default {
             this.$emit('click');
         },
     },
-};
+});
 </script>

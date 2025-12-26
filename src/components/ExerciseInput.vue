@@ -81,8 +81,9 @@ import { useExerciseStore } from '@/stores/exercise';
 import BasicButton from '@/components/BasicButton.vue';
 import ConfirmButton from '@/components/ConfirmButton.vue';
 import DropdownSelect from '@/components/DropdownSelect.vue';
+import { defineComponent } from 'vue';
 
-export default {
+export default defineComponent({
     data() {
         return {
             workoutName: '',
@@ -139,5 +140,5 @@ export default {
             exerciseStore: useExerciseStore(),
         };
     },
-};
+});
 </script>

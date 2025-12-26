@@ -21,8 +21,9 @@ import { useExerciseStore } from '@/stores/exercise';
 import { useExerciseLogStore } from '@/stores/exercise-log';
 import BasicButton from './BasicButton.vue';
 import type { ExportedData } from '@/models/data-management';
+import { defineComponent } from 'vue';
 
-export default {
+export default defineComponent({
     data() {
         return {
             exerciseStore: useExerciseStore(),
@@ -60,18 +61,18 @@ export default {
             const file = target.files[0];
             try {
                 const reader = new FileReader();
-                reader.onload = (e) => {
+                reader.onload = (e): void => {
                     try {
                         if (!e.target?.result || typeof e.target.result !== 'string') {
                             throw Error();
                         }
                         const json = JSON.parse(e.target.result) as ExportedData;
                         this.importData(json);
-                    } catch (err) {
+                    } catch {
                         console.error('Invalid JSON');
                     }
                 };
-                reader.onerror = () => {
+                reader.onerror = (): void => {
                     console.log('error reading file');
                 };
 
@@ -87,5 +88,5 @@ export default {
             );
         },
     },
-};
+});
 </script>
