@@ -1,4 +1,4 @@
-import type { Exercise, LoggedExercise } from '@/models/exercise.interface';
+import type { Exercise, LoggedExercise, Muscle } from '@/models/exercise.interface';
 import { GymTrackerDatabase } from './GymTrackerDatabase';
 
 class ClientDataService {
@@ -18,19 +18,18 @@ class ClientDataService {
     }
 
     async setExercises(exercises: Exercise[]): Promise<void> {
-        await this.gymTrackerDatabase.exercises.clear();
-        for (const exercise of exercises) {
-            await this.gymTrackerDatabase.exercises.add(exercise);
-        }
+        await this.gymTrackerDatabase.setExercises(exercises);
     }
 
     async getExerciseByName(name: string): Promise<Exercise | undefined> {
         return await this.gymTrackerDatabase.exercises.where('name').equals(name).first();
     }
 
-    async getExercisesByMuscle(muscle: string): Promise<Exercise[]> {
+    async getExercisesByMuscle(muscle: Muscle): Promise<Exercise[]> {
         const allExercises = await this.gymTrackerDatabase.exercises.toArray();
-        const filteredExercises = allExercises.filter((exercise) => exercise.name.includes(muscle));
+        const filteredExercises = allExercises.filter((exercise) =>
+            exercise.muscleTargets.map((target) => target.muscle).includes(muscle),
+        );
         return filteredExercises;
     }
 
@@ -48,6 +47,10 @@ class ClientDataService {
 
     async setExerciseLogs(logs: LoggedExercise[]): Promise<void> {
         await this.gymTrackerDatabase.setExerciseLogs(logs);
+    }
+
+    async clearExerciseLogs(): Promise<void> {
+        await this.gymTrackerDatabase.setExerciseLogs([]);
     }
 }
 

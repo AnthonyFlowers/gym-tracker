@@ -114,14 +114,14 @@ export default defineComponent({
             if (isValidExercise(exercise)) {
                 this.exerciseLogStore.addExerciseLog(exercise);
             } else {
-                alert('invalid Exercise');
+                alert('Invalid Exercise');
             }
         },
         clearWorkouts() {
             this.exerciseLogStore.clearExerciseLog();
         },
         addExercise() {
-            alert('add exercise not implemented');
+            alert('Add exercise not implemented');
         },
         getExercises() {
             return this.exerciseStore.exercises;

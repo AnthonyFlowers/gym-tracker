@@ -56,7 +56,7 @@ export const useExerciseLogStore = defineStore('exerciseLog', {
         async clearExerciseLog() {
             this.exerciseLog = [];
             try {
-                await this.db.setExerciseLogs([]);
+                await this.db.clearExerciseLogs();
             } catch (error) {
                 console.error('Failed to clear exercise logs from database:', error);
                 await this.reloadExerciseLog();
