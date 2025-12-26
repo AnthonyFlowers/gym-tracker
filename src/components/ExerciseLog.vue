@@ -71,21 +71,35 @@
 <script lang="ts">
 import { useExerciseLogStore } from '@/stores/exercise-log';
 import ConfirmButton from './ConfirmButton.vue';
+import { defineComponent } from 'vue';
 
-export default {
+export default defineComponent({
     setup() {
         return {
             exerciseLogStore: useExerciseLogStore(),
         };
+    },
+    mounted() {
+        if (!this.exerciseLogStore.isLoaded) {
+            this.loadExerciseLogs()
+                .then(() => {})
+                .catch(() => {
+                    // TODO: Handle error appropriately
+                    // Alert the user or log the error
+                });
+        }
     },
     components: { ConfirmButton },
     methods: {
         getExercises() {
             return [...this.exerciseLogStore.exerciseLog].reverse();
         },
-        deleteExercise(exerciseId: string) {
-            this.exerciseLogStore.deleteExercise(exerciseId);
+        async deleteExercise(logId: string) {
+            await this.exerciseLogStore.deleteLoggedExercise(logId);
+        },
+        async loadExerciseLogs() {
+            await this.exerciseLogStore.loadExerciseLog();
         },
     },
-};
+});
 </script>
