@@ -22,6 +22,7 @@ export const useExerciseStore = defineStore('exercise', {
                     exercise.muscleTargets.some((target) => target.muscle === muscle),
                 ),
         getExerciseChoices: (state) => state.exercises.map((exercise) => exercise.name),
+        getFirstExercise: (state) => (state.exercises.length > 0 ? state.exercises[0] : null),
     },
     actions: {
         async loadExercises() {

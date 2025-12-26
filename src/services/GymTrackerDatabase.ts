@@ -1,7 +1,6 @@
 import Dexie from 'dexie';
 import type { Table } from 'dexie';
 import type { Exercise, LoggedExercise } from '@/models/exercise.interface';
-import { startingExercises } from '@/models/consts';
 
 export class GymTrackerDatabase extends Dexie {
     exercises: Table<Exercise & { id?: number }, number>;
@@ -22,12 +21,7 @@ export class GymTrackerDatabase extends Dexie {
     }
 
     async getExercises(): Promise<(Exercise & { id?: number })[]> {
-        const allExercises = await this.exercises.toArray();
-        if (allExercises.length === 0) {
-            await this.setExercises(startingExercises);
-            return [...startingExercises];
-        }
-        return allExercises;
+        return await this.exercises.toArray();
     }
 
     async setExercises(exercises: Exercise[]): Promise<void> {

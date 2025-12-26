@@ -95,8 +95,8 @@ export default defineComponent({
         };
     },
     mounted() {
-        this.loadExercises().then(async () => {
-            this.workoutName = await this.getFirstExerciseName();
+        this.loadExercises().then(() => {
+            this.workoutName = this.getFirstExerciseName();
         });
     },
     components: { BasicButton, ConfirmButton, DropdownSelect },
@@ -126,9 +126,9 @@ export default defineComponent({
         getExercises() {
             return this.exerciseStore.exercises;
         },
-        async getFirstExerciseName() {
-            const exercises = this.exerciseStore.exercises;
-            return exercises[0].name;
+        getFirstExerciseName() {
+            const exercise = this.exerciseStore.getFirstExercise;
+            return exercise ? exercise.name : '';
         },
         async loadExercises() {
             await this.exerciseStore.loadExercises();
