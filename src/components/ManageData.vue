@@ -22,6 +22,7 @@ import { useExerciseLogStore } from '@/stores/exercise-log';
 import BasicButton from './BasicButton.vue';
 import type { ExportedData } from '@/models/data-management';
 import { defineComponent } from 'vue';
+import { newError } from '@/models/error';
 
 export default defineComponent({
     data() {
@@ -52,6 +53,7 @@ export default defineComponent({
         importData(data: ExportedData) {
             this.exerciseStore.setExercises(data.exercises);
             this.exerciseLogStore.setExerciseLog(data.loggedExercises);
+            // TODO: Add notification of successful import with number of exercises/logs imported
         },
         handleFileUpload(event: Event) {
             const target = event.target as HTMLInputElement;
@@ -64,7 +66,7 @@ export default defineComponent({
                 reader.onload = (e): void => {
                     try {
                         if (!e.target?.result || typeof e.target.result !== 'string') {
-                            throw Error();
+                            throw newError('Invalid file content');
                         }
                         const json = JSON.parse(e.target.result) as ExportedData;
                         this.importData(json);

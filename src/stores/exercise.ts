@@ -25,15 +25,20 @@ export const useExerciseStore = defineStore('exercise', {
     },
     actions: {
         async loadExercises() {
-            if (this.isLoaded) return;
-            const dbExercises = await this.db.getExercises();
-            if (dbExercises.length === 0) {
-                await this.db.setExercises(startingExercises);
-                this.exercises = startingExercises;
-            } else {
-                this.exercises = dbExercises;
+            try {
+                if (this.isLoaded) return;
+                const dbExercises = await this.db.getExercises();
+                if (dbExercises.length === 0) {
+                    await this.db.setExercises(startingExercises);
+                    this.exercises = startingExercises;
+                } else {
+                    this.exercises = dbExercises;
+                }
+                this.isLoaded = true;
+            } catch (error) {
+                // TODO: Implement user-facing error handling
+                console.error('Error loading exercises:', error);
             }
-            this.isLoaded = true;
         },
         async setExercises(exercises: Exercise[]) {
             if (!exercises) return;
