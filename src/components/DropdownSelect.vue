@@ -1,5 +1,5 @@
 <template>
-    <div class="relative">
+    <div class="relative mb-6">
         <label v-if="label" :for="id" class="block tracking-wide text-black-700 font-bold mb-2">
             {{ label }}
         </label>

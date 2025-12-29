@@ -7,7 +7,7 @@
             id="workoutName"
         />
         <div class="flex flex-wrap -mx-3 mb-2">
-            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+            <div class="w-full md:w-1/3 px-3 my-6 md:mt-0 md:mb-0">
                 <label for="weight">Weight</label>
                 <input
                     type="number"
@@ -38,12 +38,8 @@
                 />
             </div>
         </div>
-        <div class="">
-            <label
-                for="workoutDate"
-                class="block tracking-wide text-gray-700 text-xs font-bold mb-2"
-                >Exercise Date</label
-            >
+        <div class="mb-6">
+            <label for="workoutDate" class="block text-gray-700 mb-2">Exercise Date</label>
             <input
                 type="date"
                 v-model="workoutDate"

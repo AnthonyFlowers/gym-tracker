@@ -10,14 +10,14 @@
         <button
             v-if="isConfirmed"
             @click="handleConfirm"
-            class="bg-red-200 hover:bg-red-300 text-black font-bold py-2 px-4 rounded cursor-pointer transition-colors duration-300"
+            class="bg-red-200 hover:bg-red-300 text-black font-bold py-2 px-3 rounded cursor-pointer transition-colors duration-300 mr-1"
         >
             {{ confirmText }}
         </button>
         <button
             v-if="isConfirmed"
             @click="handleCancel"
-            class="bg-yellow-200 hover:bg-yellow-300 text-black font-bold py-2 px-4 rounded cursor-pointer transition-colors duration-300"
+            class="bg-yellow-200 hover:bg-yellow-300 text-black font-bold py-2 px-3 rounded cursor-pointer transition-colors duration-300"
         >
             {{ cancelText }}
         </button>

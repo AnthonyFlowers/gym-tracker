@@ -8,17 +8,17 @@
                     Exercise
                 </th>
                 <th
-                    class="border-b border-gray-200 p-4 pb-3 pl-8 font-medium text-white text-center w-24"
+                    class="border-b border-gray-200 p-4 pb-3 pl-8 font-medium text-white text-center w-12 max-sm:hidden"
                 >
                     Weight
                 </th>
                 <th
-                    class="border-b border-gray-200 p-4 pb-3 pl-8 font-medium text-white text-center w-24"
+                    class="border-b border-gray-200 p-4 pb-3 pl-8 font-medium text-white text-center w-12 max-sm:hidden"
                 >
                     Reps
                 </th>
                 <th
-                    class="border-b border-gray-200 p-4 pb-3 pl-8 font-medium text-white text-center w-24"
+                    class="border-b border-gray-200 p-4 pb-3 pl-8 font-medium text-white text-center w-12 max-sm:hidden"
                 >
                     Sets
                 </th>
@@ -34,22 +34,22 @@
                     {{ exercise.name }}
                 </td>
                 <td
-                    class="text-center border-b border-gray-100 p-4 pl-8 text-black border-gray-700 text-center"
+                    class="text-center border-b border-gray-100 p-4 pl-8 text-black border-gray-700 text-center max-sm:hidden"
                 >
                     {{ exercise.weight }}
                 </td>
                 <td
-                    class="text-center border-b border-gray-100 p-4 pl-8 text-black border-gray-700 text-center"
+                    class="text-center border-b border-gray-100 p-4 pl-8 text-black border-gray-700 text-center max-sm:hidden"
                 >
                     {{ exercise.reps }}
                 </td>
                 <td
-                    class="text-center border-b border-gray-100 p-4 pl-8 text-black border-gray-700 text-center"
+                    class="text-center border-b border-gray-100 p-4 pl-8 text-black border-gray-700 text-center max-sm:hidden"
                 >
                     {{ exercise.sets }}
                 </td>
                 <td
-                    class="border-b border-gray-100 p-4 pl-4 text-black border-gray-700 text-center"
+                    class="border-b border-gray-100 p-4 pl-4 text-black border-gray-700 text-center w-48"
                 >
                     {{ exercise.date }}
                 </td>

@@ -60,7 +60,8 @@
                     <ConfirmButton
                         @confirmed="deleteExercise(exercise.id)"
                         initialText="Delete"
-                        confirmText="Confirm"
+                        confirmText="Y"
+                        cancelText="N"
                     />
                 </td>
             </tr>
@@ -70,7 +71,7 @@
 
 <script lang="ts">
 import { useExerciseLogStore } from '@/stores/exercise-log';
-import ConfirmButton from './ConfirmButton.vue';
+import ConfirmButton from '@/components/ConfirmButton.vue';
 import { defineComponent } from 'vue';
 
 export default defineComponent({

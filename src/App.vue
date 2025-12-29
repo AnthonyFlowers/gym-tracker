@@ -1,8 +1,3 @@
-<script setup lang="ts">
-import { defineComponent } from 'vue';
-import NavigationBar from './components/NavigationBar.vue';
-</script>
-
 <template>
     <div class="mx-auto flex flex-col h-screen">
         <NavigationBar />
@@ -13,9 +8,12 @@ import NavigationBar from './components/NavigationBar.vue';
 </template>
 
 <script lang="ts">
+import { defineComponent } from 'vue';
+import NavigationBar from '@/components/NavigationBar.vue';
+
 export default defineComponent({
     name: 'App',
-    components: {},
+    components: { NavigationBar },
     data() {
         return {};
     },
